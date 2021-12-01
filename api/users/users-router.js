@@ -15,9 +15,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:id', validateUserId, (req, res, next) => {
-  // RETURN THE USER OBJECT
-  // this needs a middleware to verify user id
-  console.log(req.user)
+  res.status(200).json(req.user)
 });
 
 router.post('/', (req, res) => {
