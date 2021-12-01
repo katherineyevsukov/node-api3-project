@@ -1,4 +1,5 @@
 const express = require('express');
+const { logger } = require('./middleware/middleware');
 
 const server = express();
 
@@ -6,14 +7,18 @@ server.use(express.json())
 
 const usersRouter = require('./users/users-router')
 
-server.use((req, res, next) => {
-  console.log({
-    method: req.method,
-    url: req.url,
-    time: new Date().toISOString()
-  })
-  next()
-})
+//MOVED TO MIDDLEWARE FILE, leaving for reference
+
+// server.use((req, res, next) => {
+//   console.log({
+//     method: req.method,
+//     url: req.url,
+//     time: new Date().toISOString()
+//   })
+//   next()
+// })
+
+server.use(logger)
 
 server.use('/api/users', usersRouter)
 

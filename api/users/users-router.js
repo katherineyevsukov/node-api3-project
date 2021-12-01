@@ -1,18 +1,23 @@
 const express = require('express');
-
-// You will need `users-model.js` and `posts-model.js` both
-// The middleware functions also need to be required
+const User = require('./users-model')
+const Post = require('./../posts/posts-model')
+const { validateUserId } = require('./../middleware/middleware')
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-  // RETURN AN ARRAY WITH ALL THE USERS
-  next({message: 'hello'})
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await User.get()
+    res.status(200).json(users)
+  } catch(err){
+    next(err)
+  }
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validateUserId, (req, res, next) => {
   // RETURN THE USER OBJECT
   // this needs a middleware to verify user id
+  console.log(req.user)
 });
 
 router.post('/', (req, res) => {
