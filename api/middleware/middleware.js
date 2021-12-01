@@ -24,8 +24,11 @@ async function validateUserId(req, res, next) {
 }
 
 function validateUser(req, res, next) {
-  console.log('cat')
-  next()
+  if (!req.body.name || !req.body.name.trim()){
+    next({status: 400, message: "missing required name field" })
+  } else {
+    next()
+  }
 }
 
 function validatePost(req, res, next) {
