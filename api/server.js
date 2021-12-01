@@ -6,6 +6,15 @@ server.use(express.json())
 
 const usersRouter = require('./users/users-router')
 
+server.use((req, res, next) => {
+  console.log({
+    method: req.method,
+    url: req.url,
+    time: new Date().toISOString()
+  })
+  next()
+})
+
 server.use('/api/users', usersRouter)
 
 server.get('/', (req, res) => {
