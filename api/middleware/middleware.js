@@ -32,8 +32,12 @@ function validateUser(req, res, next) {
 }
 
 function validatePost(req, res, next) {
-  // DO YOUR MAGIC
+  if (!req.body.text || !req.body.text.trim()){
+    next({status: 400, message: "missing required text"})
+  } else {
+    next()
+  }
 }
 
 // do not forget to expose these functions to other modules
-module.exports = { logger, validateUserId, validateUser }
+module.exports = { logger, validateUserId, validateUser, validatePost }
